@@ -3,7 +3,7 @@ from PyQt6.QtCore import QTimer, pyqtSlot, pyqtSignal
 from Controller import Controller
 from Heater import Heater
 from Gastherme import Gastherme
-
+from Notaus import Notaus
 
 class HeatControlWidget(QWidget):
     slotReferenceValueKitchen = pyqtSlot(int)
@@ -25,12 +25,18 @@ class HeatControlWidget(QWidget):
 
     signalRuecklauf = pyqtSignal(int)
 
+    slotNotaus = pyqtSlot()
+
     def __init__(self, parent=None):
         super(HeatControlWidget, self).__init__(parent)
         ###Klassen importieren###
         self.heater = Heater(self)
         self.controller = Controller(self)
         self.gastherme = Gastherme(self)
+        self.notaus = Notaus(self)
+
+        ###Notaus###
+        self.notaus.signalNotaus.connect(self.slotNotaus)
 
         ###Timer Kitchen###
         self.timerKitchen = QTimer(self)
@@ -72,7 +78,20 @@ class HeatControlWidget(QWidget):
         myLayout.addWidget(self.controller)
         myLayout.addWidget(self.heater)
         myLayout.addWidget(self.gastherme)
+        myLayout.addWidget(self.notaus)
         self.setLayout(myLayout)
+
+    #Notaus Funktion
+    def slotNotaus(self,wert):
+        self.controller.verticalSliderLiving.setEnabled(wert)
+        self.controller.verticalSliderOffice.setEnabled(wert)
+        self.controller.verticalSliderKitchen.setEnabled(wert)
+        self.controller.horizontalSliderAussen.setEnabled(wert)
+        self.gastherme.QDialVorlauf.setEnabled(wert)
+        self.gastherme.QDialRuecklauf.setEnabled(wert)
+        self.gastherme.QDialWarmwasser.setEnabled(wert)
+        self.gastherme.QDialFrostschutz.setEnabled(wert)
+
 
     #Außentemperatur wird übergeben und Frostschutz auf True oder False gesetzt
     def slotRealValueAussen(self, temp):

@@ -19,18 +19,18 @@ class Heater(QWidget):
         self.textBrowserKitchen = self.findChild(QTextBrowser, "textBrowserKitchen")
         self.textBrowserAussen = self.findChild(QTextBrowser, "textBrowserAussen")
 
-    def textOffice(self, soll):
-        text = str(soll) + " °C"
+    def textOffice(self, ist):
+        text = str(ist) + " °C"
         self.textBrowserOffice.setText(text)
 
-    def textLiving(self, soll):
-        text = str(soll) + " °C"
+    def textLiving(self, ist):
+        text = str(ist) + " °C"
         self.textBrowserLiving.setText(text)
 
-    def textKitchen(self, soll):
-        text = str(soll) + " °C"
+    def textKitchen(self, ist):
+        text = str(ist) + " °C"
         self.textBrowserKitchen.setText(text)
 
-    def textAussen(self,soll):
-        text = str(soll) + " °C"
+    def textAussen(self, ist):
+        text = str(ist) + " °C"
         self.textBrowserAussen.setText(text)

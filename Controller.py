@@ -35,7 +35,7 @@ class Controller(QWidget):
         self.horizontalSliderAussen.setValue(20)
 
     def valueOffice(self, soll):
-        self.changedTempOffice.emit(soll)
+            self.changedTempOffice.emit(soll)
 
     def valueLiving(self, soll):
         self.changedTempLiving.emit(soll)
@@ -55,4 +55,3 @@ class Controller(QWidget):
             self.verticalSliderOffice.setMinimum(0)
             self.verticalSliderKitchen.setMinimum(0)
             self.verticalSliderLiving.setMinimum(0)
-            #
